@@ -3,7 +3,7 @@
 	path = tools/cantools
 	url = git@github.com:rimakoe/cantools.git
 	branch = extend_codegen
-[submodule "tools/can-transciever-lib"]
-	path = tools/can-transciever-lib
-	url = git@github.com:rimakoe/can-transciever-lib.git
+[submodule "tools/can-transceiver-lib"]
+	path = tools/can-transceiver-lib
+	url = git@github.com:rimakoe/can-transceiver-lib.git
 	branch = main
