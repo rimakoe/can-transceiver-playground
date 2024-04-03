@@ -6,4 +6,3 @@
 [submodule "tools/can-transceiver-lib"]
 	path = tools/can-transceiver-lib
 	url = git@github.com:rimakoe/can-transceiver-lib.git
-	branch = main
