@@ -37,4 +37,4 @@ RUN groupadd --gid $USER_GID $_USERNAME \
 USER $_USERNAME
 
 RUN echo "source /opt/ros/iron/setup.bash" >> ~/.bashrc \
-    && echo "source /home/user/can-transciever-playground/ros2_ws/install/local_setup.bash" >> ~/.bashrc
+    && echo "source /home/user/can-transceiver-playground/ros2_ws/install/local_setup.bash" >> ~/.bashrc

@@ -7,9 +7,9 @@
 #include <string>
 #include <rclcpp/rclcpp.hpp>
 
-#include <can_lib/transciever_autogen.h>
+#include <can-transceiver-lib/transceiver.h>
 
-class TestNode : public rclcpp::Node, canlib::Transciever
+class TestNode : public rclcpp::Node, canlib::Transceiver
 {
   public:
     TestNode();

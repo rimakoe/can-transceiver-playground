@@ -3,7 +3,7 @@
 sudo chown -R $(whoami):$(whoami) /home/user/
 python -m pip install --update pip
 pip install -e ./tools/cantools
-cd tools/can-transciever-lib
+cd tools/can-transceiver-lib
 mkdir build
 cd build
 cmake ..

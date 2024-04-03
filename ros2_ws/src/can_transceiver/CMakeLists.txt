@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(can_transciever)
+project(can_transceiver)
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -12,9 +12,9 @@ find_package(rclcpp REQUIRED)
 set(STANDARD_CPP_LIB_DIR /usr/local/lib)
 set(STANDARD_CPP_INCLUDE_DIR /usr/local/include)
 
-include_directories(include ${STANDARD_CPP_INCLUDE_DIR}/can-transciever-lib)
-add_executable(${PROJECT_NAME} src/ros2can_transciever.cpp)
-target_link_libraries(${PROJECT_NAME} ${rclcpp_LIBRARIES} ${STANDARD_CPP_LIB_DIR}/can-transciever-lib/libcan-transciever-lib.so)
+include_directories(include ${STANDARD_CPP_INCLUDE_DIR}/can-transceiver-lib)
+add_executable(${PROJECT_NAME} src/ros2can_transceiver.cpp)
+target_link_libraries(${PROJECT_NAME} ${rclcpp_LIBRARIES} ${STANDARD_CPP_LIB_DIR}/can-transceiver-lib/libcan-transceiver-lib.so)
 ament_target_dependencies(${PROJECT_NAME} rclcpp)
 
 

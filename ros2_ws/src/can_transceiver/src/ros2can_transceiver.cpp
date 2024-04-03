@@ -1,8 +1,8 @@
-#include "can_transciever/ros2can_transciever.h"
+#include "can_transceiver/ros2can_transceiver.h"
 
 using namespace std::chrono_literals;
 
-TestNode::TestNode(): rclcpp::Node("test_node_canlib"), canlib::Transciever() {
+TestNode::TestNode(): rclcpp::Node("test_node_canlib"), canlib::Transceiver() {
     // Use callbacks to customize the decoding of the incoming data
     canlib::callback::rcv::can1::jetson_commands = [&](can1_jetson_commands_t /*frame_encoded*/){
       RCLCPP_INFO(this->get_logger(), "Hello from callback %lf\n", canlib::data.can1.jetson_commands.jetson_speed_target_left);

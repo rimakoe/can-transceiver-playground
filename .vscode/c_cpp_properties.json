@@ -5,8 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/opt/ros/iron/include/**",
-                "${workspaceFolder}/ros2_ws/src/can_transciever/include/**",
-                "${workspaceFolder}/ros2_ws/src/can-transciever-lib/include/**",
+                "${workspaceFolder}/ros2_ws/src/can_transceiver/include/**",
+                "${workspaceFolder}/tools/can-transceiver-lib/include/**",
                 "/opt/ros/iron/include/rclcpp"
             ],
             "defines": [],

@@ -1,5 +1,0 @@
-launch:
-  - node:
-      pkg: "can_transciever"
-      exec: "can_transciever"
-      name: "transciever1"
