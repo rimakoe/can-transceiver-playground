@@ -1,0 +1,52 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
+{
+	"name": "can-transciever-playground",
+	"privileged": true,
+	"remoteUser": "user",
+	"build": {
+		// Sets the run context to one level up instead of the .devcontainer folder.
+		"context": "../docker",
+		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
+		"dockerfile": "../docker/Dockerfile",
+		"args": {
+			"_USERNAME": "user"
+		}
+	},
+	"workspaceMount": "source=${localWorkspaceFolder},target=/home/user/can-transciever-playground,type=bind",
+	"workspaceFolder": "/home/user/can-transciever-playground",
+	"runArgs": [
+		"--add-host=host.docker.internal:host-gateway",
+		"--net=host",
+		"--pid=host",
+		"--ipc=host",
+		"-e",
+		"DISPLAY=${env:DISPLAY}",
+		"-v",
+		"/dev/shm:/dev/shm:rw"
+	],
+	"containerEnv": {
+		"DISPLAY": "unix:0",
+		"ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+		"ROS_DOMAIN_ID": "0"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools",
+				"waderyan.gitblame",
+				"ms-vscode.cpptools-themes",
+				"twxs.cmake",
+				"donjayamanne.python-extension-pack",
+				"ms-iot.vscode-ros",
+				"mhutchie.git-graph",
+				"arturock.gitstash"
+			]
+		},
+		"mounts": [
+			"source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+			"source=/dev/dri,target=/dev/dri,type=bind,consistency=cached"
+		]
+	},
+	"postCreateCommand": "./entrypoint.bash"
+}

@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/opt/ros/iron/include/**",
+                "${workspaceFolder}/ros2_ws/src/can_transciever/include/**",
+                "${workspaceFolder}/ros2_ws/src/can-transciever-lib/include/**",
+                "/opt/ros/iron/include/rclcpp"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}
