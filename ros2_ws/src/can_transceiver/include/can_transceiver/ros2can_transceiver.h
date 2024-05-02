@@ -1,23 +1,24 @@
 #ifndef _TEST_NODE_H_
 #define _TEST_NODE_H_
 
+#include <can-transceiver-lib/can1.h>
+#include <can-transceiver-lib/transceiver.h>
+
 #include <chrono>
 #include <functional>
 #include <memory>
-#include <string>
 #include <rclcpp/rclcpp.hpp>
+#include <string>
 
-#include <can-transceiver-lib/transceiver.h>
+class TestNode : public rclcpp::Node, canlib::Transceiver {
+ public:
+  TestNode();
+  TestNode(std::string device_name, std::vector<can_filter> filters);
+  ~TestNode();
 
-class TestNode : public rclcpp::Node, canlib::Transceiver
-{
-  public:
-    TestNode();
-    ~TestNode();
-  
-  private:
-    bool is_receiver_running = false;
-    bool is_transmitter_running = false;
+ private:
+  bool is_receiver_running = false;
+  bool is_transmitter_running = false;
 };
 
-#endif // _TEST_NODE_H_
+#endif  // _TEST_NODE_H_

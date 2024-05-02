@@ -8,13 +8,11 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(can-transceiver-lib REQUIRED)
 
-set(STANDARD_CPP_LIB_DIR /usr/local/lib)
-set(STANDARD_CPP_INCLUDE_DIR /usr/local/include)
-
-include_directories(include ${STANDARD_CPP_INCLUDE_DIR}/can-transceiver-lib)
 add_executable(${PROJECT_NAME} src/ros2can_transceiver.cpp)
-target_link_libraries(${PROJECT_NAME} ${rclcpp_LIBRARIES} ${STANDARD_CPP_LIB_DIR}/can-transceiver-lib/libcan-transceiver-lib.so)
+target_include_directories(${PROJECT_NAME} PUBLIC include)
+target_link_libraries(${PROJECT_NAME} ${rclcpp_LIBRARIES} canlib::can-transceiver-lib)
 ament_target_dependencies(${PROJECT_NAME} rclcpp)
 
 
