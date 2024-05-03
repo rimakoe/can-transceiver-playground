@@ -19,6 +19,9 @@ class TestNode : public rclcpp::Node, canlib::Transceiver {
  private:
   bool is_receiver_running = false;
   bool is_transmitter_running = false;
+  double m_brake_ratio;
+  double m_lap_count;
+  std::mutex mtx;
 };
 
 #endif  // _TEST_NODE_H_

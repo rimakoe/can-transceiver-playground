@@ -5,12 +5,17 @@ TestNode::TestNode() : rclcpp::Node("test_node_canlib"), canlib::Transceiver() {
 
 TestNode::TestNode(std::string device_name, std::vector<can_filter> filters)
     : rclcpp::Node("test_node_canlib"), canlib::Transceiver(device_name, filters) {
+  m_brake_ratio = 0.0;
+  m_lap_count = 0.0;
   // Use callbacks to customize the decoding of the incoming data
-  canlib::callback::rcv::can1::jetson_commands = [&](can1_jetson_commands_t /*frame_encoded*/) {
-    RCLCPP_INFO(this->get_logger(), "Jetson Commands %lf\n", canlib::data.can1.jetson_commands.jetson_speed_target_left);
+  canlib::callback::rcv::can1::jetson_commands = [&](can1_jetson_commands_t /*frame_encoded*/,
+                                                     canlib::frame::decoded::can1::jetson_commands_t frame_decoded) {
+    RCLCPP_INFO(this->get_logger(), "received jetson_commands: brake ratio = %lf", frame_decoded.jetson_brake_ratio);
+    m_brake_ratio = frame_decoded.jetson_brake_ratio;
   };
-  canlib::callback::rcv::can1::jetson_tx = [&](can1_jetson_tx_t /*frame_encoded*/) {
-    RCLCPP_INFO(this->get_logger(), "Jetson TX %lf\n", canlib::data.can1.jetson_tx.jetson_as_ok);
+  canlib::callback::rcv::can1::jetson_tx = [&](can1_jetson_tx_t /*frame_encoded*/, canlib::frame::decoded::can1::jetson_tx_t frame_decoded) {
+    RCLCPP_INFO(this->get_logger(), "received jetson_tx: lap count = %lf", frame_decoded.jetson_lap_count);
+    m_lap_count = frame_decoded.jetson_lap_count;
   };
 
   // Use a thread to continuously update the can messages
@@ -18,9 +23,11 @@ TestNode::TestNode(std::string device_name, std::vector<can_filter> filters)
     RCLCPP_INFO(this->get_logger(), "starting CAN receiver ...");
     this->is_receiver_running = true;
     while (rclcpp::ok()) {
+      mtx.lock();
       if (receive()) {
         RCLCPP_INFO(this->get_logger(), "received data");
       }
+      mtx.unlock();
     }
     RCLCPP_INFO(this->get_logger(), "shutdown CAN receiver ...");
     this->is_receiver_running = false;
@@ -32,6 +39,7 @@ TestNode::TestNode(std::string device_name, std::vector<can_filter> filters)
     this->is_transmitter_running = true;
     while (rclcpp::ok()) {
       transmit(canlib::frame::decoded::can1::jetson_commands_t(0.1, 0.2, 0.3, 0.4, 0.5));
+      RCLCPP_INFO(this->get_logger(), "current lap count: %lf", m_lap_count);
       sleep(1);
     }
     RCLCPP_INFO(this->get_logger(), "shutdown CAN transmitter ...");
