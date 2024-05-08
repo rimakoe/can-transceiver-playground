@@ -8,12 +8,12 @@ TestNode::TestNode(std::string device_name, std::vector<can_filter> filters)
   m_brake_ratio = 0.0;
   m_lap_count = 0.0;
   // Use callbacks to customize the decoding of the incoming data
-  canlib::callback::rcv::can1::jetson_commands = [&](can1_jetson_commands_t /*frame_encoded*/,
-                                                     canlib::frame::decoded::can1::jetson_commands_t frame_decoded) {
+  canlib::callback::can1::jetson_commands = [&](can1_jetson_commands_t /*frame_encoded*/,
+                                                canlib::frame::decoded::can1::jetson_commands_t frame_decoded) {
     RCLCPP_INFO(this->get_logger(), "received jetson_commands: brake ratio = %lf", frame_decoded.jetson_brake_ratio);
     m_brake_ratio = frame_decoded.jetson_brake_ratio;
   };
-  canlib::callback::rcv::can1::jetson_tx = [&](can1_jetson_tx_t /*frame_encoded*/, canlib::frame::decoded::can1::jetson_tx_t frame_decoded) {
+  canlib::callback::can1::jetson_tx = [&](can1_jetson_tx_t /*frame_encoded*/, canlib::frame::decoded::can1::jetson_tx_t frame_decoded) {
     RCLCPP_INFO(this->get_logger(), "received jetson_tx: lap count = %lf", frame_decoded.jetson_lap_count);
     m_lap_count = frame_decoded.jetson_lap_count;
   };
